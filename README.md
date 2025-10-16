@@ -2,6 +2,10 @@
 
 A Flutter package that provides an interactive inspector for visualizing and debugging your app's themes, including Material and Cupertino widgets, color schemes, and text styles.
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/evanca/theme_inspector/refs/heads/main/screenshots/demo.gif" alt="Demo" height="420px" />
+</p>
+
 ## Features
 
 ✨ **Visual Theme Inspection** - View all Material and Cupertino widgets with your current theme applied  
@@ -82,7 +86,7 @@ This will open a page with four default tabs:
 
 Display your custom color palette alongside the default ColorScheme:
 
-![Color Scheme Tab](screenshots/web_01_color_scheme.png)
+![Color Scheme Tab](https://raw.githubusercontent.com/evanca/theme_inspector/refs/heads/main/screenshots/web_01_color_scheme.png)
 
 ```dart
 import 'package:theme_inspector/theme_inspector.dart';
@@ -113,7 +117,7 @@ ThemeInspector.open(
 
 Show your custom typography alongside the default TextTheme:
 
-![Text Theme Tab](screenshots/web_02_text_theme.png)
+![Text Theme Tab](https://raw.githubusercontent.com/evanca/theme_inspector/refs/heads/main/screenshots/web_02_text_theme.png)
 
 ```dart
 ThemeInspector.open(
@@ -143,7 +147,7 @@ ThemeInspector.open(
 
 Display your custom Material widgets to see how they look with the current theme:
 
-![Material Widgets Tab](screenshots/web_03_material_widgets.png)
+![Material Widgets Tab](https://raw.githubusercontent.com/evanca/theme_inspector/refs/heads/main/screenshots/web_03_material_widgets.png)
 
 ```dart
 final gradientButton = Container(
@@ -182,7 +186,7 @@ ThemeInspector.open(
 
 Display your custom Cupertino widgets:
 
-![Cupertino Widgets Tab](screenshots/web_04_cupertino_widgets.png)
+![Cupertino Widgets Tab](https://raw.githubusercontent.com/evanca/theme_inspector/refs/heads/main/screenshots/web_04_cupertino_widgets.png)
 
 ```dart
 ThemeInspector.open(
@@ -200,7 +204,7 @@ ThemeInspector.open(
 
 Add completely custom tabs with your own content:
 
-![Custom Tabs Example](screenshots/web_05_custom_tabs.png)
+![Custom Tabs Example](https://raw.githubusercontent.com/evanca/theme_inspector/refs/heads/main/screenshots/web_05_custom_tabs.png)
 
 ```dart
 ThemeInspector.open(
@@ -233,118 +237,6 @@ ThemeInspector.open(
   colorSchemeEnabled: true,    // Keep Color Scheme tab
   textThemeEnabled: true,      // Keep Text Theme tab
 );
-```
-
-### Complete Example
-
-Here's a comprehensive example using all features:
-
-```dart
-import 'package:flutter/material.dart';
-import 'package:theme_inspector/theme_inspector.dart';
-
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    // Create a reusable custom widget
-    final gradientButton = Container(
-      height: 44.0,
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xFF0057B7), Color(0xFFFFDD00)],
-        ),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.transparent,
-          shadowColor: Colors.transparent,
-        ),
-        child: const Text(
-          'My Custom Button',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
-    );
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Theme Inspector Example'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () => ThemeInspector.open(
-            context,
-            // Add custom colors
-            additionalColors: [
-              ColorSection(
-                title: "Brand Colors",
-                colors: [
-                  ColorInfo(
-                    name: 'brandPrimary',
-                    color: const Color(0xFF0057B7),
-                    textColor: Colors.white,
-                  ),
-                  ColorInfo(
-                    name: 'brandAccent',
-                    color: const Color(0xFFFFDD00),
-                    textColor: Colors.black,
-                  ),
-                ],
-              ),
-            ],
-            // Add custom text styles
-            additionalTextStyles: [
-              TextStyleInfo(
-                'Custom Heading',
-                const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF0057B7),
-                ),
-              ),
-            ],
-            // Add custom Material widgets
-            additionalMaterialWidgets: [
-              SectionWrapper(
-                title: 'My Custom Material Widget',
-                child: gradientButton,
-              ),
-            ],
-            // Add custom Cupertino widgets
-            additionalCupertinoWidgets: [
-              SectionWrapper(
-                title: 'My Custom Cupertino Widget',
-                child: gradientButton,
-              ),
-            ],
-            // Add custom tabs
-            customTabs: [
-              InspectorTab(
-                title: 'About',
-                icon: Icons.info_outline,
-                child: const Center(
-                  child: Padding(
-                    padding: EdgeInsets.all(24.0),
-                    child: Text(
-                      'This is my custom theme inspector configuration!',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          child: const Text('Open Theme Inspector'),
-        ),
-      ),
-    );
-  }
-}
 ```
 
 ## API Reference

@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:theme_inspector/src/color_scheme/color_info.dart';
-import 'package:theme_inspector/src/color_scheme/color_section.dart';
-import 'package:theme_inspector/src/shared/section_wrapper.dart';
-import 'package:theme_inspector/src/text_theme/text_style_info.dart';
 import 'package:theme_inspector/theme_inspector.dart';
 
 void main() {

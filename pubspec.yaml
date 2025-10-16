@@ -1,8 +1,6 @@
 name: theme_inspector
-description: >-
-  Interactive Flutter theme inspector for visualizing and debugging Material and Cupertino widgets,
-  color schemes, and text styles with customizable tabs and copy-to-clipboard functionality.
-version: 1.0.0
+description: Interactive Flutter theme inspector for visualizing and debugging Material and Cupertino widgets, color schemes, and text styles.
+version: 1.0.2
 repository: https://github.com/evanca/theme_inspector
 
 topics:

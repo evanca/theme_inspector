@@ -12,7 +12,7 @@ class MaterialTab extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('AppBar'),
-        leading: BackButton(),
+        leading: Icon(Icons.favorite_outline),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
@@ -268,28 +268,20 @@ class _RadioButtonsColumnState extends State<_RadioButtonsColumn> {
 
   @override
   Widget build(BuildContext context) {
-    return _ControlColumn(
-      children: [
-        Radio<int>(
-          value: 0,
-          groupValue: _radioValue,
-          onChanged: (value) {
-            setState(() {
-              _radioValue = value;
-            });
-          },
-        ),
-        Radio<int>(
-          value: 1,
-          groupValue: _radioValue,
-          onChanged: (value) {
-            setState(() {
-              _radioValue = value;
-            });
-          },
-        ),
-        const Radio<int>(value: 2, groupValue: null, onChanged: null),
-      ],
+    return RadioGroup<int>(
+      groupValue: _radioValue,
+      onChanged: (int? value) {
+        setState(() {
+          _radioValue = value;
+        });
+      },
+      child: _ControlColumn(
+        children: [
+          Radio<int>(value: 0),
+          Radio<int>(value: 1),
+          const Radio<int>(value: 2),
+        ],
+      ),
     );
   }
 }

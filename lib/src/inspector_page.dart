@@ -112,28 +112,34 @@ class _InspectorPageState extends State<InspectorPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          TabBar(
-            controller: _tabController,
-            tabs: List.generate(
-              _tabs.length,
-              (index) =>
-                  Tab(text: _tabs[index].title, icon: Icon(_tabs[index].icon)),
-            ),
-          ),
-          Expanded(
-            child: TabBarView(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final bool isSmallScreen = constraints.maxWidth < 600;
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            leading: BackButton(),
+            title: TabBar(
               controller: _tabController,
-              children: List.generate(
+              isScrollable: isSmallScreen,
+              tabs: List.generate(
                 _tabs.length,
-                (index) => _tabs[index].child,
+                (index) => Tab(
+                  text: isSmallScreen ? null : _tabs[index].title,
+                  icon: Icon(_tabs[index].icon),
+                ),
               ),
             ),
           ),
-        ],
-      ),
+          body: TabBarView(
+            controller: _tabController,
+            children: List.generate(
+              _tabs.length,
+              (index) => _tabs[index].child,
+            ),
+          ),
+        );
+      },
     );
   }
 }

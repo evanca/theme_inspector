@@ -15,7 +15,7 @@ class CupertinoTab extends StatelessWidget {
     return CupertinoPageScaffold(
       backgroundColor: CupertinoColors.systemBackground.resolveFrom(context),
       navigationBar: CupertinoNavigationBar(
-        automaticBackgroundVisibility: false,
+        leading: Icon(CupertinoIcons.heart),
         middle: const Text('CupertinoNavigationBar'),
         trailing: Icon(CupertinoIcons.ellipsis),
       ),
@@ -491,7 +491,7 @@ class _BottomSheetShowcase extends _ShowcaseBase {
           onPressed: () {
             showCupertinoSheet(
               context: context,
-              pageBuilder:
+              builder:
                   (context) => CupertinoPageScaffold(
                     child: Center(
                       child: DefaultTextStyle(
