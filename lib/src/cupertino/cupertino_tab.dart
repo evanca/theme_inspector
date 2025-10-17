@@ -8,7 +8,7 @@ import 'package:theme_inspector/src/shared/section_wrapper.dart';
 class CupertinoTab extends StatelessWidget {
   const CupertinoTab({super.key, this.additionalCupertinoWidgets});
 
-  final List<Widget>? additionalCupertinoWidgets;
+  final List<SectionWrapper>? additionalCupertinoWidgets;
 
   @override
   Widget build(BuildContext context) {

@@ -15,21 +15,6 @@ A Flutter package that provides an interactive inspector for visualizing and deb
 📋 **Copy to Clipboard** - Easily copy color codes and text style information  
 🎛️ **Toggle Tabs** - Enable or disable built-in tabs as needed
 
-## Installation
-
-Add this to your package's `pubspec.yaml` file:
-
-```yaml
-dependencies:
-  theme_inspector: ^1.0.0
-```
-
-Then run:
-
-```bash
-flutter pub get
-```
-
 ## Quick Start
 
 Import the package and open the inspector:

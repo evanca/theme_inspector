@@ -1,3 +1,9 @@
+## 1.0.3
+
+- Fix: Missing type annotation.
+- Upgraded dependencies.
+- Update README.
+
 ## 1.0.2
 
 - Enhanced tab bar design for improved navigation.

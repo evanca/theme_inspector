@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:theme_inspector/src/color_scheme/color_section.dart';
-import 'package:theme_inspector/src/text_theme/text_style_info.dart';
-import 'package:theme_inspector/src/theme_inspector_base.dart';
+import 'package:theme_inspector/theme_inspector.dart';
 
 /// This widget displays a tabbed interface showing different aspects of the current theme,
 /// including Material widgets, Cupertino widgets, color schemes, and text styles.
@@ -24,12 +22,12 @@ class InspectorPage extends StatefulWidget {
   /// Additional Material widgets to display in the Material tab.
   ///
   /// These widgets will be shown after the default Material widget examples.
-  final List<Widget>? additionalMaterialWidgets;
+  final List<SectionWrapper>? additionalMaterialWidgets;
 
   /// Additional Cupertino widgets to display in the Cupertino tab.
   ///
   /// These widgets will be shown after the default Cupertino widget examples.
-  final List<Widget>? additionalCupertinoWidgets;
+  final List<SectionWrapper>? additionalCupertinoWidgets;
 
   /// Custom tabs to add to the inspector.
   ///

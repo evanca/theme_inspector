@@ -99,7 +99,7 @@ class InspectorTab {
   });
 
   /// Color scheme tab
-  factory InspectorTab.colorScheme(additionalColors) {
+  factory InspectorTab.colorScheme(List<ColorSection>? additionalColors) {
     return InspectorTab(
       title: 'Color Scheme',
       icon: Icons.color_lens,
@@ -108,7 +108,7 @@ class InspectorTab {
   }
 
   /// Material theme components tab
-  factory InspectorTab.material(additionalMaterialWidgets) {
+  factory InspectorTab.material(List<SectionWrapper>? additionalMaterialWidgets) {
     return InspectorTab(
       title: 'Material',
       icon: Icons.android,
@@ -117,7 +117,7 @@ class InspectorTab {
   }
 
   /// Cupertino theme components tab
-  factory InspectorTab.cupertino(additionalCupertinoWidgets) {
+  factory InspectorTab.cupertino(List<SectionWrapper>? additionalCupertinoWidgets) {
     return InspectorTab(
       title: 'Cupertino',
       icon: Icons.apple,
@@ -128,7 +128,7 @@ class InspectorTab {
   }
 
   /// Text theme tab
-  factory InspectorTab.textTheme(additionalTextStyles) {
+  factory InspectorTab.textTheme(List<TextStyleInfo>? additionalTextStyles) {
     return InspectorTab(
       title: 'Text Theme',
       icon: Icons.text_fields,

@@ -1,6 +1,6 @@
 name: theme_inspector
 description: Interactive Flutter theme inspector for visualizing and debugging Material and Cupertino widgets, color schemes, and text styles.
-version: 1.0.2
+version: 1.0.3
 repository: https://github.com/evanca/theme_inspector
 
 topics:
@@ -42,8 +42,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  lints: ^5.1.1
-  test: ^1.25.15
+  lints: ^6.0.0
+  test: ^1.26.2
 
 flutter:
   uses-material-design: true
