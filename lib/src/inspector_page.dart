@@ -100,10 +100,20 @@ class _InspectorPageState extends State<InspectorPage>
 
     _tabs = defaultTabs;
     _tabController = TabController(length: _tabs.length, vsync: this);
+    _tabController.addListener(_onTabChanged);
+  }
+
+  /// Triggers a rebuild when the selected tab index settles so the label of
+  /// the newly-selected tab becomes visible on small screens.
+  void _onTabChanged() {
+    if (!_tabController.indexIsChanging) {
+      setState(() {});
+    }
   }
 
   @override
   void dispose() {
+    _tabController.removeListener(_onTabChanged);
     _tabController.dispose();
     super.dispose();
   }
@@ -120,13 +130,32 @@ class _InspectorPageState extends State<InspectorPage>
             title: TabBar(
               controller: _tabController,
               isScrollable: isSmallScreen,
-              tabs: List.generate(
-                _tabs.length,
-                (index) => Tab(
-                  text: isSmallScreen ? null : _tabs[index].title,
+              tabs: List.generate(_tabs.length, (index) {
+                final bool isSelected = index == _tabController.index;
+
+                if (isSmallScreen) {
+                  return Tab(
+                    height: kMinInteractiveDimension,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(_tabs[index].icon),
+                        Opacity(
+                          key: ValueKey('tab_label_opacity_$index'),
+                          opacity: isSelected ? 1.0 : 0.0,
+                          child: Text(_tabs[index].title),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+
+                return Tab(
+                  text: _tabs[index].title,
                   icon: Icon(_tabs[index].icon),
-                ),
-              ),
+                );
+              }),
             ),
           ),
           body: TabBarView(

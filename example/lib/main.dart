@@ -57,70 +57,69 @@ class MyHomePage extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             ElevatedButton(
-              onPressed:
-                  () => ThemeInspector.open(
-                    context,
-                    additionalColors: [
-                      ColorSection(
-                        title: "My custom colors",
-                        colors: [
-                          ColorInfo(
-                            name: 'Custom Color 1',
-                            color: Color(0xFF0057B7),
-                            textColor: Colors.white,
-                          ),
-                          ColorInfo(
-                            name: 'Custom Color 2',
-                            color: Color(0xFFFFDD00),
-                            textColor: Colors.black,
-                          ),
-                        ],
+              onPressed: () => ThemeInspector.open(
+                context,
+                additionalColors: [
+                  ColorSection(
+                    title: "My custom colors",
+                    colors: [
+                      ColorInfo(
+                        name: 'Custom Color 1',
+                        color: Color(0xFF0057B7),
+                        textColor: Colors.white,
                       ),
-                    ],
-                    additionalTextStyles: [
-                      TextStyleInfo(
-                        'My Custom Style 1',
-                        TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF0057B7),
-                        ),
-                      ),
-                      TextStyleInfo(
-                        'My Custom Style 2',
-                        TextStyle(
-                          fontSize: 16,
-                          fontStyle: FontStyle.italic,
-                          color: Color(0xFF9D2235),
-                        ),
-                      ),
-                    ],
-                    additionalMaterialWidgets: [
-                      SectionWrapper(
-                        title: 'My Custom Widget for Material Tab',
-                        child: gradientButton,
-                      ),
-                    ],
-                    additionalCupertinoWidgets: [
-                      SectionWrapper(
-                        title: 'My Custom Widget for Cupertino Tab',
-                        child: gradientButton,
-                      ),
-                    ],
-                    customTabs: [
-                      InspectorTab(
-                        title: 'My Custom Tab',
-                        icon: Icons.catching_pokemon,
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Text(
-                            'This is a custom tab added to the Theme Inspector. You can add any content here.',
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          ),
-                        ),
+                      ColorInfo(
+                        name: 'Custom Color 2',
+                        color: Color(0xFFFFDD00),
+                        textColor: Colors.black,
                       ),
                     ],
                   ),
+                ],
+                additionalTextStyles: [
+                  TextStyleInfo(
+                    'My Custom Style 1',
+                    TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF0057B7),
+                    ),
+                  ),
+                  TextStyleInfo(
+                    'My Custom Style 2',
+                    TextStyle(
+                      fontSize: 16,
+                      fontStyle: FontStyle.italic,
+                      color: Color(0xFF9D2235),
+                    ),
+                  ),
+                ],
+                additionalMaterialWidgets: [
+                  SectionWrapper(
+                    title: 'My Custom Widget for Material Tab',
+                    child: gradientButton,
+                  ),
+                ],
+                additionalCupertinoWidgets: [
+                  SectionWrapper(
+                    title: 'My Custom Widget for Cupertino Tab',
+                    child: gradientButton,
+                  ),
+                ],
+                customTabs: [
+                  InspectorTab(
+                    title: 'My Custom Tab',
+                    icon: Icons.catching_pokemon,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        'This is a custom tab added to the Theme Inspector. You can add any content here.',
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
               child: const Text('Open Theme Inspector'),
             ),
           ],

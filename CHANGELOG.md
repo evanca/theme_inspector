@@ -1,3 +1,8 @@
+## 1.0.4
+
+- Improve accessibility: All tab touch targets on mobile screens now meet the 48×48 dp minimum size requirement.
+- Added agent skill for AI-assisted theme inspection.
+
 ## 1.0.3
 
 - Fix: Missing type annotation.

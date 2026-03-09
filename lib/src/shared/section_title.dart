@@ -5,11 +5,7 @@ class SectionTitle extends StatelessWidget {
   final String title;
   final Color? color;
 
-  const SectionTitle({
-    super.key,
-    required this.title,
-    this.color,
-  });
+  const SectionTitle({super.key, required this.title, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +26,7 @@ class SectionTitle extends StatelessWidget {
         const SizedBox(width: 8),
         Text(
           title,
-          style: textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
+          style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
         ),
       ],
     );

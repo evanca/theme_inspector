@@ -108,7 +108,9 @@ class InspectorTab {
   }
 
   /// Material theme components tab
-  factory InspectorTab.material(List<SectionWrapper>? additionalMaterialWidgets) {
+  factory InspectorTab.material(
+    List<SectionWrapper>? additionalMaterialWidgets,
+  ) {
     return InspectorTab(
       title: 'Material',
       icon: Icons.android,
@@ -117,7 +119,9 @@ class InspectorTab {
   }
 
   /// Cupertino theme components tab
-  factory InspectorTab.cupertino(List<SectionWrapper>? additionalCupertinoWidgets) {
+  factory InspectorTab.cupertino(
+    List<SectionWrapper>? additionalCupertinoWidgets,
+  ) {
     return InspectorTab(
       title: 'Cupertino',
       icon: Icons.apple,
