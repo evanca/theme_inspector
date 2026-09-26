@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:theme_inspector/src/color_scheme/color_info.dart';
 import 'package:theme_inspector/src/color_scheme/color_scheme_tab.dart';
 import 'package:theme_inspector/src/shared/section_wrapper.dart';
@@ -89,6 +89,11 @@ class CupertinoTab extends StatelessWidget {
                     const SectionWrapper(
                       title: 'Context Menu',
                       child: _ContextMenuShowcase(),
+                    ),
+
+                    const SectionWrapper(
+                      title: 'Menus',
+                      child: _MenusShowcase(),
                     ),
                   ],
                 ),
@@ -641,6 +646,41 @@ class _ContextMenuShowcase extends _ShowcaseBase {
           padding: EdgeInsets.all(16.0),
           child: Text('Long press me'),
         ),
+      ),
+    );
+  }
+}
+
+class _MenusShowcase extends _ShowcaseBase {
+  const _MenusShowcase();
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoMenuAnchor(
+      menuChildren: [
+        CupertinoMenuItem(
+          leading: const Icon(CupertinoIcons.doc_on_clipboard),
+          onPressed: () {},
+          child: const Text('Copy'),
+        ),
+        CupertinoMenuItem(
+          leading: const Icon(CupertinoIcons.share),
+          subtitle: const Text('With a subtitle'),
+          onPressed: () {},
+          child: const Text('Share'),
+        ),
+        const CupertinoMenuDivider(),
+        CupertinoMenuItem(
+          isDestructiveAction: true,
+          leading: const Icon(CupertinoIcons.delete),
+          onPressed: () {},
+          child: const Text('Delete'),
+        ),
+      ],
+      builder: (context, controller, child) => CupertinoButton.tinted(
+        onPressed: () =>
+            controller.isOpen ? controller.close() : controller.open(),
+        child: const Text('Show Menu'),
       ),
     );
   }

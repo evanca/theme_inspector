@@ -7,6 +7,17 @@ description: Use when building a new Flutter app, when changing themes/colors/fo
 
 A Flutter package that provides an interactive inspector for visualizing and debugging your app's themes, including Material and Cupertino widgets, color schemes, and text styles.
 
+## Requirements
+
+Version 2.x reads the theme from `package:material_ui` and `package:cupertino_ui`, the
+standalone replacements for the Material and Cupertino libraries that were frozen inside
+the Flutter SDK in Flutter 3.44. The host app must use them too.
+
+If the app still imports `package:flutter/material.dart`, either migrate it with
+`dart fix --apply --code=migrate_design_widgets`, or use `theme_inspector: ^1.1.0`.
+Opening the inspector from a non-migrated app shows an explanatory screen instead of the
+app's theme.
+
 ## When to Use
 
 - When building a new app — open the inspector to show out-of-the-box Material and Cupertino widgets to the customer with the current theme applied.

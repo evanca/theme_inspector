@@ -1,3 +1,38 @@
+## 2.0.0
+
+Migrates to Flutter's decoupled design libraries. Material and Cupertino inside the
+Flutter SDK were frozen in 3.44 and are being replaced by the standalone `material_ui`
+and `cupertino_ui` packages, which are deprecated-in-place in the SDK from the November
+2026 stable release.
+
+- **Breaking:** The inspector now reads the theme from `package:material_ui` and
+  `package:cupertino_ui` instead of `package:flutter/material.dart` and
+  `package:flutter/cupertino.dart`. **Your app must use these packages too.** Migrate with
+  `dart fix --apply --code=migrate_design_widgets`, or stay on `theme_inspector: ^1.1.0`.
+- **Breaking:** Raised the minimum SDK to Dart 3.12 / Flutter 3.44, as required by
+  `material_ui`.
+- Opening the inspector from an app that has not migrated now shows an explanatory screen
+  naming the migration command, instead of throwing a confusing
+  "No MaterialLocalizations found" error from deep inside `AppBar`. The screen renders
+  without a `Scaffold` or `Material` ancestor, so it supplies its own `DefaultTextStyle`
+  rather than inheriting Flutter's debug one, and is covered by a golden test.
+- Cupertino tab: added a Menus section using `CupertinoMenuAnchor`, `CupertinoMenuItem`
+  and `CupertinoMenuDivider`, which the Flutter 3.44 floor makes available.
+- Fixed tab labels being clipped between 600 dp and roughly 780 dp. The compact tab bar
+  now switches on available width **per tab** (150 dp each) rather than on total width,
+  so adding tabs via `customTabs` no longer squeezes the labels. The threshold is
+  unchanged at 600 dp for the four built-in tabs.
+- Fixed unselected tabs having no accessible name in the compact layout. Their labels are
+  drawn at zero opacity, which removed them from the semantics tree, so screen readers
+  announced them as unlabelled.
+- Fixed text style names being truncated on narrow screens. The size is no longer rendered
+  in the style it describes -- `57px` was drawn at 57 px, taking the width the specimen
+  needed -- and a specimen too wide for its row now takes the full width with its size
+  beneath it, decided by measuring the text rather than by a fixed breakpoint.
+- Fixed colour names being truncated on narrow phones. The hex chip and copy button take a
+  fixed width, leaving too little for the name at around 320 dp; a colour row now stacks
+  its value beneath its name when the card is narrower than 300 dp.
+
 ## 1.1.0
 
 - **Breaking:** Raised the minimum SDK to Dart 3.11 / Flutter 3.41. This is required

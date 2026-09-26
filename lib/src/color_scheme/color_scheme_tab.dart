@@ -1,10 +1,16 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:theme_inspector/src/shared/clipboard_service.dart';
 import 'package:theme_inspector/src/shared/color_chip.dart';
 import 'package:theme_inspector/src/shared/section_title.dart';
 
 import 'color_info.dart';
 import 'color_section.dart';
+
+/// Card width below which a colour row stacks its name above its value.
+///
+/// The hex chip and copy button occupy a fixed ~160 dp, so on a narrower card
+/// the name would be ellipsised away to a few characters.
+const double _kStackedColorRowWidth = 300.0;
 
 /// A tab that displays a list of color sections from the app's color scheme
 class ColorSchemeTab extends StatelessWidget {
@@ -170,23 +176,20 @@ class ColorCard extends StatelessWidget {
           width: double.infinity,
           padding: const EdgeInsets.all(16),
           color: colorInfo.color,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Text(
-                  colorInfo.name,
-                  overflow: TextOverflow.ellipsis,
-                  style: textTheme.titleMedium?.copyWith(
-                    color:
-                        colorInfo.textColor ??
-                        _getContrastColor(colorInfo.color),
-                    fontWeight: FontWeight.bold,
-                  ),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final Widget name = Text(
+                colorInfo.name,
+                overflow: TextOverflow.ellipsis,
+                style: textTheme.titleMedium?.copyWith(
+                  color:
+                      colorInfo.textColor ?? _getContrastColor(colorInfo.color),
+                  fontWeight: FontWeight.bold,
                 ),
-              ),
-              SizedBox(width: 16),
-              Row(
+              );
+
+              final Widget value = Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   ColorChip(
                     text: hexColor,
@@ -206,8 +209,28 @@ class ColorCard extends StatelessWidget {
                     ),
                   ),
                 ],
-              ),
-            ],
+              );
+
+              // The hex chip and copy button need roughly 160 dp between them.
+              // On a narrow card that leaves too little for the name, which is
+              // the part worth reading, so stack instead of truncating it.
+              if (constraints.maxWidth < _kStackedColorRowWidth) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [name, const SizedBox(height: 8), value],
+                );
+              }
+
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(child: name),
+                  const SizedBox(width: 16),
+                  value,
+                ],
+              );
+            },
           ),
         ),
       ),

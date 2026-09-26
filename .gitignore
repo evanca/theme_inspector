@@ -19,3 +19,6 @@ pubspec.lock
 
 # Flutter metadata
 .metadata
+
+# Diff images written by failing golden tests
+test/failures/

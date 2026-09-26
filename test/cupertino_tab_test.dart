@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:theme_inspector/src/cupertino/cupertino_tab.dart';
 import 'package:theme_inspector/src/shared/section_wrapper.dart';
@@ -37,6 +37,7 @@ void main() {
       expect(find.text('Dialogs'), findsOneWidget);
       expect(find.text('Pickers'), findsOneWidget);
       expect(find.text('Context Menu'), findsOneWidget);
+      expect(find.text('Menus'), findsOneWidget);
     });
 
     testWidgets('displays activity indicators', (tester) async {
@@ -53,6 +54,13 @@ void main() {
       expect(find.byType(CupertinoPicker), findsWidgets);
       expect(find.byType(CupertinoDatePicker), findsOneWidget);
       expect(find.byType(CupertinoContextMenu), findsOneWidget);
+    });
+
+    testWidgets('displays the Cupertino menu anchor', (tester) async {
+      await tester.pumpWidget(CupertinoApp(home: const CupertinoTab()));
+
+      expect(find.byType(CupertinoMenuAnchor), findsOneWidget);
+      expect(find.text('Show Menu'), findsOneWidget);
     });
 
     testWidgets('displays button widgets', (tester) async {

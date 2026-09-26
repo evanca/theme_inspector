@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:theme_inspector/src/inspector_page.dart';
 import 'package:theme_inspector/src/theme_inspector_base.dart';
@@ -53,6 +53,18 @@ void main() {
         icon: Icons.favorite,
         child: const SizedBox.shrink(),
       );
+      // Four tabs, so 390dp is below the 150dp-per-tab threshold and the
+      // compact tab bar is used. With only two tabs there is room for labels.
+      final tabC = InspectorTab(
+        title: 'C',
+        icon: Icons.circle,
+        child: const SizedBox.shrink(),
+      );
+      final tabD = InspectorTab(
+        title: 'D',
+        icon: Icons.square,
+        child: const SizedBox.shrink(),
+      );
 
       await tester.pumpWidget(
         MaterialApp(
@@ -61,7 +73,7 @@ void main() {
             materialEnabled: false,
             cupertinoEnabled: false,
             textThemeEnabled: false,
-            customTabs: [tabA, tabB],
+            customTabs: [tabA, tabB, tabC, tabD],
           ),
         ),
       );

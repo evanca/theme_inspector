@@ -6,6 +6,28 @@ A Flutter package that provides an interactive inspector for visualizing and deb
   <img src="https://raw.githubusercontent.com/evanca/theme_inspector/refs/heads/main/screenshots/demo.gif" alt="Demo" height="420px" />
 </p>
 
+## Requirements
+
+**Version 2.x requires `package:material_ui` and `package:cupertino_ui`.** As of Flutter
+3.44 the Material and Cupertino libraries inside the SDK are frozen, and they are being
+replaced by these standalone packages. The inspector reads your theme from them, so your
+app must use them too.
+
+If your app still imports `package:flutter/material.dart`, you have two options:
+
+- **Migrate your app** (recommended — the SDK libraries are deprecated in the November 2026
+  stable release):
+
+  ```sh
+  dart fix --apply --code=migrate_design_widgets
+  ```
+
+- **Stay on `theme_inspector: ^1.1.0`**, which reads the theme from
+  `package:flutter/material.dart`.
+
+Opening the inspector from an app that has not migrated shows an explanatory screen rather
+than another app's theme. Requires Flutter 3.44 / Dart 3.12 or newer.
+
 ## Features
 
 ✨ **Visual Theme Inspection** - View all Material and Cupertino widgets with your current theme applied  
@@ -20,7 +42,7 @@ A Flutter package that provides an interactive inspector for visualizing and deb
 Import the package and open the inspector:
 
 ```dart
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:theme_inspector/theme_inspector.dart';
 
 void main() {

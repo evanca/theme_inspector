@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// A customizable chip that displays text with configurable background and text colors
 class ColorChip extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:theme_inspector/src/material/material_tab.dart';
 import 'package:theme_inspector/src/shared/section_wrapper.dart';

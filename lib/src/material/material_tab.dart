@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:theme_inspector/src/shared/section_wrapper.dart';
 
 /// A tab that displays various Material widgets for inspection
