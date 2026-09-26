@@ -7,7 +7,10 @@ on:
 
 jobs:
   analyze-and-test:
-    runs-on: ubuntu-latest
+    # Pinned, not ubuntu-latest: the golden tests in test/goldens/ are Linux pixel
+    # output, so a runner image change can break them. ubuntu-latest migrates to
+    # Ubuntu 26 from 2026-10-19. Regenerate the goldens before bumping this.
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
 
