@@ -66,10 +66,9 @@ void main() {
         ),
       );
 
-      double labelOpacity(int index) =>
-          tester
-              .widget<Opacity>(find.byKey(ValueKey('tab_label_opacity_$index')))
-              .opacity;
+      double labelOpacity(int index) => tester
+          .widget<Opacity>(find.byKey(ValueKey('tab_label_opacity_$index')))
+          .opacity;
 
       expect(labelOpacity(0), 1.0);
       expect(labelOpacity(1), 0.0);

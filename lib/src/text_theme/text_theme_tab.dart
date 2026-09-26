@@ -12,7 +12,7 @@ class TextThemeTab extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     final textStyles = [
-      if (additionalTextStyles != null) ...additionalTextStyles!,
+      ...?additionalTextStyles,
       TextStyleInfo('displayLarge', textTheme.displayLarge),
       TextStyleInfo('displayMedium', textTheme.displayMedium),
       TextStyleInfo('displaySmall', textTheme.displaySmall),
@@ -76,14 +76,13 @@ class _TextStyleCard extends StatelessWidget {
               const SizedBox(width: 4),
               IconButton(
                 icon: Icon(Icons.copy, size: 16),
-                onPressed:
-                    () => ClipboardService.copyToClipboard(
-                      context,
-                      '${textStyleInfo.name}: '
-                      '${style.fontSize?.toStringAsFixed(0) ?? ""}px'
-                      ', ${style.fontWeight != null ? style.fontWeight!.toString() : ""}'
-                      ', fontFamily: ${style.fontFamily ?? "default"}',
-                    ),
+                onPressed: () => ClipboardService.copyToClipboard(
+                  context,
+                  '${textStyleInfo.name}: '
+                  '${style.fontSize?.toStringAsFixed(0) ?? ""}px'
+                  ', ${style.fontWeight != null ? style.fontWeight!.toString() : ""}'
+                  ', fontFamily: ${style.fontFamily ?? "default"}',
+                ),
               ),
             ],
           ),

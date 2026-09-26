@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:theme_inspector/src/shared/section_title.dart';
+
+import 'section_title.dart';
 
 /// Section wrapper for consistent padding and spacing
 class SectionWrapper extends StatelessWidget {
+  /// Title displayed above the section content
   final String title;
+
+  /// Widget displayed below the section title
   final Widget child;
 
+  /// Creates a section with a title above the given [child]
   const SectionWrapper({super.key, required this.title, required this.child});
 
   @override

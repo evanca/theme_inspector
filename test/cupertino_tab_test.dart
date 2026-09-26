@@ -33,6 +33,26 @@ void main() {
       expect(find.text('Selection'), findsOneWidget);
       expect(find.text('Color Constants'), findsOneWidget);
       expect(find.text('Bottom Sheets'), findsOneWidget);
+      expect(find.text('Activity Indicators'), findsOneWidget);
+      expect(find.text('Dialogs'), findsOneWidget);
+      expect(find.text('Pickers'), findsOneWidget);
+      expect(find.text('Context Menu'), findsOneWidget);
+    });
+
+    testWidgets('displays activity indicators', (tester) async {
+      await tester.pumpWidget(CupertinoApp(home: const CupertinoTab()));
+
+      expect(find.byType(CupertinoActivityIndicator), findsNWidgets(3));
+      expect(find.byType(CupertinoLinearActivityIndicator), findsOneWidget);
+    });
+
+    testWidgets('displays pickers and context menu', (tester) async {
+      await tester.pumpWidget(CupertinoApp(home: const CupertinoTab()));
+
+      // CupertinoDatePicker builds a CupertinoPicker per date column.
+      expect(find.byType(CupertinoPicker), findsWidgets);
+      expect(find.byType(CupertinoDatePicker), findsOneWidget);
+      expect(find.byType(CupertinoContextMenu), findsOneWidget);
     });
 
     testWidgets('displays button widgets', (tester) async {

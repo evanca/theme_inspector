@@ -283,6 +283,20 @@ InspectorTab({
 })
 ```
 
+## Agent Skill
+
+The package ships an agent skill at `skills/theme_inspector/SKILL.md` for use with
+coding agents that support skills, such as Claude Code. It teaches the agent when to
+reach for the inspector — building a new app, changing themes, fonts or colors, or
+adding a custom widget — and how to extend it with your own colors, text styles,
+widgets and tabs.
+
+To use it, copy the skill into your project's skills directory:
+
+```bash
+cp -r path/to/theme_inspector/skills/theme_inspector .claude/skills/
+```
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.

@@ -50,8 +50,7 @@ class MaterialTab extends StatelessWidget {
             spacing: 32.0,
             runSpacing: 16.0,
             children: [
-              if (additionalMaterialWidgets != null)
-                ...additionalMaterialWidgets!,
+              ...?additionalMaterialWidgets,
 
               const SectionWrapper(title: 'Buttons', child: _ButtonsShowcase()),
 
@@ -80,6 +79,23 @@ class MaterialTab extends StatelessWidget {
               const SectionWrapper(
                 title: 'Bottom Sheets',
                 child: _BottomSheetShowcase(),
+              ),
+
+              const SectionWrapper(
+                title: 'Progress Indicators',
+                child: _ProgressIndicatorsShowcase(),
+              ),
+
+              const SectionWrapper(title: 'Menus', child: _MenusShowcase()),
+
+              const SectionWrapper(
+                title: 'Dialogs & Notifications',
+                child: _DialogsShowcase(),
+              ),
+
+              const SectionWrapper(
+                title: 'Badges & Tooltips',
+                child: _BadgesShowcase(),
               ),
             ],
           ),
@@ -583,6 +599,159 @@ class _BottomSheetShowcase extends _ShowcaseBase {
             });
           },
           child: const Text('Show Persistent Bottom Sheet'),
+        ),
+      ],
+    );
+  }
+}
+
+class _ProgressIndicatorsShowcase extends _ShowcaseBase {
+  const _ProgressIndicatorsShowcase();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      spacing: 24.0,
+      children: [
+        Wrap(
+          spacing: 24.0,
+          runSpacing: 16.0,
+          alignment: WrapAlignment.center,
+          children: [
+            CircularProgressIndicator(),
+            CircularProgressIndicator(value: 0.7),
+          ],
+        ),
+        LinearProgressIndicator(),
+        LinearProgressIndicator(value: 0.7),
+      ],
+    );
+  }
+}
+
+class _MenusShowcase extends _ShowcaseBase {
+  const _MenusShowcase();
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: 16.0,
+      runSpacing: 16.0,
+      alignment: WrapAlignment.center,
+      children: [
+        MenuAnchor(
+          menuChildren: [
+            MenuItemButton(
+              leadingIcon: const Icon(Icons.content_cut),
+              onPressed: () {},
+              child: const Text('Cut'),
+            ),
+            MenuItemButton(
+              leadingIcon: const Icon(Icons.content_copy),
+              onPressed: () {},
+              child: const Text('Copy'),
+            ),
+            MenuItemButton(
+              leadingIcon: const Icon(Icons.content_paste),
+              onPressed: null,
+              child: const Text('Paste'),
+            ),
+          ],
+          builder: (context, controller, child) => OutlinedButton(
+            onPressed: () =>
+                controller.isOpen ? controller.close() : controller.open(),
+            child: const Text('Menu Anchor'),
+          ),
+        ),
+        const DropdownMenu<String>(
+          initialSelection: 'Item 1',
+          label: Text('Dropdown Menu'),
+          dropdownMenuEntries: [
+            DropdownMenuEntry(value: 'Item 1', label: 'Item 1'),
+            DropdownMenuEntry(value: 'Item 2', label: 'Item 2'),
+            DropdownMenuEntry(value: 'Item 3', label: 'Item 3'),
+          ],
+        ),
+        PopupMenuButton<String>(
+          tooltip: 'Popup Menu',
+          onSelected: (_) {},
+          itemBuilder: (context) => const [
+            PopupMenuItem(value: 'Item 1', child: Text('Item 1')),
+            PopupMenuItem(value: 'Item 2', child: Text('Item 2')),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class _DialogsShowcase extends _ShowcaseBase {
+  const _DialogsShowcase();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      spacing: 16.0,
+      children: [
+        ElevatedButton(
+          onPressed: () {
+            showDialog<void>(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text('Alert Dialog'),
+                content: const Text('This is the content of the alert dialog.'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text('Cancel'),
+                  ),
+                  FilledButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ),
+            );
+          },
+          child: const Text('Show Alert Dialog'),
+        ),
+        Builder(
+          builder: (context) => ElevatedButton(
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: const Text('This is a SnackBar'),
+                  action: SnackBarAction(label: 'Undo', onPressed: () {}),
+                ),
+              );
+            },
+            child: const Text('Show SnackBar'),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _BadgesShowcase extends _ShowcaseBase {
+  const _BadgesShowcase();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Wrap(
+      spacing: 24.0,
+      runSpacing: 16.0,
+      alignment: WrapAlignment.center,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        Badge(
+          label: Text('3'),
+          child: Icon(Icons.notifications_outlined, size: 32),
+        ),
+        Badge(child: Icon(Icons.mail_outlined, size: 32)),
+        Tooltip(
+          message: 'This is a tooltip',
+          child: Icon(Icons.info_outline, size: 32),
         ),
       ],
     );

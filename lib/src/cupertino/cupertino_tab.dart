@@ -29,8 +29,7 @@ class CupertinoTab extends StatelessWidget {
                   spacing: 32.0,
                   runSpacing: 16.0,
                   children: [
-                    if (additionalCupertinoWidgets != null)
-                      ...additionalCupertinoWidgets!,
+                    ...?additionalCupertinoWidgets,
 
                     const SectionWrapper(
                       title: 'Buttons',
@@ -70,6 +69,26 @@ class CupertinoTab extends StatelessWidget {
                     const SectionWrapper(
                       title: 'Bottom Sheets',
                       child: _BottomSheetShowcase(),
+                    ),
+
+                    const SectionWrapper(
+                      title: 'Activity Indicators',
+                      child: _ActivityIndicatorsShowcase(),
+                    ),
+
+                    const SectionWrapper(
+                      title: 'Dialogs',
+                      child: _DialogsShowcase(),
+                    ),
+
+                    const SectionWrapper(
+                      title: 'Pickers',
+                      child: _CupertinoPickersShowcase(),
+                    ),
+
+                    const SectionWrapper(
+                      title: 'Context Menu',
+                      child: _ContextMenuShowcase(),
                     ),
                   ],
                 ),
@@ -460,28 +479,25 @@ class _BottomSheetShowcase extends _ShowcaseBase {
           onPressed: () {
             showCupertinoModalPopup(
               context: context,
-              builder:
-                  (context) => CupertinoActionSheet(
-                    title: const Text('Action Sheet Title'),
-                    message: const Text(
-                      'This is the message of the action sheet',
-                    ),
-                    actions: [
-                      CupertinoActionSheetAction(
-                        onPressed: () => Navigator.pop(context),
-                        child: const Text('Action 1'),
-                      ),
-                      CupertinoActionSheetAction(
-                        onPressed: () => Navigator.pop(context),
-                        child: const Text('Action 2'),
-                      ),
-                    ],
-                    cancelButton: CupertinoActionSheetAction(
-                      onPressed: () => Navigator.pop(context),
-                      isDefaultAction: true,
-                      child: const Text('Cancel'),
-                    ),
+              builder: (context) => CupertinoActionSheet(
+                title: const Text('Action Sheet Title'),
+                message: const Text('This is the message of the action sheet'),
+                actions: [
+                  CupertinoActionSheetAction(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text('Action 1'),
                   ),
+                  CupertinoActionSheetAction(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text('Action 2'),
+                  ),
+                ],
+                cancelButton: CupertinoActionSheetAction(
+                  onPressed: () => Navigator.pop(context),
+                  isDefaultAction: true,
+                  child: const Text('Cancel'),
+                ),
+              ),
             );
           },
           child: const Text('Show Action Sheet'),
@@ -491,28 +507,141 @@ class _BottomSheetShowcase extends _ShowcaseBase {
           onPressed: () {
             showCupertinoSheet(
               context: context,
-              builder:
-                  (context) => CupertinoPageScaffold(
-                    child: Center(
-                      child: DefaultTextStyle(
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: CupertinoColors.label.resolveFrom(context),
-                        ),
-                        child: Text(
-                          'This is a Cupertino bottom sheet',
-                          style: TextStyle(
-                            color: CupertinoColors.label.resolveFrom(context),
-                          ),
-                        ),
+              scrollableBuilder: (context, controller) => CupertinoPageScaffold(
+                child: Center(
+                  child: DefaultTextStyle(
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: CupertinoColors.label.resolveFrom(context),
+                    ),
+                    child: Text(
+                      'This is a Cupertino bottom sheet',
+                      style: TextStyle(
+                        color: CupertinoColors.label.resolveFrom(context),
                       ),
                     ),
                   ),
+                ),
+              ),
             );
           },
           child: const Text('Show Bottom Sheet'),
         ),
       ],
+    );
+  }
+}
+
+class _ActivityIndicatorsShowcase extends _ShowcaseBase {
+  const _ActivityIndicatorsShowcase();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      spacing: 24.0,
+      children: [
+        Wrap(
+          spacing: 24.0,
+          runSpacing: 16.0,
+          alignment: WrapAlignment.center,
+          children: [
+            CupertinoActivityIndicator(),
+            CupertinoActivityIndicator(radius: 16.0),
+            CupertinoActivityIndicator.partiallyRevealed(progress: 0.7),
+          ],
+        ),
+        CupertinoLinearActivityIndicator(progress: 0.7),
+      ],
+    );
+  }
+}
+
+class _DialogsShowcase extends _ShowcaseBase {
+  const _DialogsShowcase();
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoButton.tinted(
+      onPressed: () {
+        showCupertinoDialog<void>(
+          context: context,
+          builder: (context) => CupertinoAlertDialog(
+            title: const Text('Alert Dialog'),
+            content: const Text('This is the content of the alert dialog.'),
+            actions: [
+              CupertinoDialogAction(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Cancel'),
+              ),
+              CupertinoDialogAction(
+                isDefaultAction: true,
+                onPressed: () => Navigator.pop(context),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      },
+      child: const Text('Show Alert Dialog'),
+    );
+  }
+}
+
+class _CupertinoPickersShowcase extends _ShowcaseBase {
+  const _CupertinoPickersShowcase();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      spacing: 16.0,
+      children: [
+        SizedBox(
+          height: 120,
+          child: CupertinoPicker(
+            itemExtent: 32.0,
+            onSelectedItemChanged: (_) {},
+            children: const [Text('Item 1'), Text('Item 2'), Text('Item 3')],
+          ),
+        ),
+        SizedBox(
+          height: 160,
+          child: CupertinoDatePicker(
+            mode: CupertinoDatePickerMode.date,
+            initialDateTime: DateTime.utc(2026, 1, 1),
+            onDateTimeChanged: (_) {},
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _ContextMenuShowcase extends _ShowcaseBase {
+  const _ContextMenuShowcase();
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 100,
+      child: CupertinoContextMenu(
+        actions: [
+          CupertinoContextMenuAction(
+            trailingIcon: CupertinoIcons.doc_on_clipboard,
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Copy'),
+          ),
+          CupertinoContextMenuAction(
+            isDestructiveAction: true,
+            trailingIcon: CupertinoIcons.delete,
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Delete'),
+          ),
+        ],
+        child: const Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Text('Long press me'),
+        ),
+      ),
     );
   }
 }

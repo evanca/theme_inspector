@@ -1,0 +1,29 @@
+# NOTE: When a .pubignore exists, pub uses it INSTEAD of .gitignore for this
+# directory, so everything that must stay out of the published archive has to be
+# repeated here — not just the pub-specific exclusions.
+
+# Build artifacts and generated files (mirrors .gitignore).
+.dart_tool/
+pubspec.lock
+/build/
+
+# IDE configuration (mirrors .gitignore).
+/.idea/
+/.run/
+*.iml
+
+# macOS system files (mirrors .gitignore).
+.DS_Store
+
+# Flutter metadata (mirrors .gitignore).
+.metadata
+
+# Pub-specific exclusions below.
+
+# Only the screenshots declared in pubspec.yaml need to ship. The demo GIF is
+# referenced from the README by absolute URL, so it does not belong in the
+# published archive.
+screenshots/demo.gif
+
+# Tests are not useful to consumers of the package.
+test/

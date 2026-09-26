@@ -11,8 +11,20 @@ void main() {
       );
 
       expect(find.text('AppBar'), findsOneWidget);
-      expect(find.byType(BackButton), findsOneWidget);
-      expect(find.byIcon(Icons.more_vert), findsOneWidget);
+      expect(
+        find.descendant(
+          of: find.byType(AppBar),
+          matching: find.byIcon(Icons.favorite_outline),
+        ),
+        findsOneWidget,
+      );
+      expect(
+        find.descendant(
+          of: find.byType(AppBar),
+          matching: find.byIcon(Icons.more_vert),
+        ),
+        findsOneWidget,
+      );
     });
 
     testWidgets('displays bottom navigation bar', (tester) async {
@@ -36,6 +48,55 @@ void main() {
       expect(find.text('Selection'), findsOneWidget);
       expect(find.text('Cards'), findsOneWidget);
       expect(find.text('Bottom Sheets'), findsOneWidget);
+      expect(find.text('Progress Indicators'), findsOneWidget);
+      expect(find.text('Menus'), findsOneWidget);
+      expect(find.text('Dialogs & Notifications'), findsOneWidget);
+      expect(find.text('Badges & Tooltips'), findsOneWidget);
+    });
+
+    testWidgets('displays progress indicators', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(theme: ThemeData.light(), home: const MaterialTab()),
+      );
+
+      expect(find.byType(CircularProgressIndicator), findsNWidgets(2));
+      expect(find.byType(LinearProgressIndicator), findsNWidgets(2));
+    });
+
+    testWidgets('displays menu widgets', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(theme: ThemeData.light(), home: const MaterialTab()),
+      );
+
+      // DropdownMenu builds its own MenuAnchor, so more than one is expected.
+      expect(find.byType(MenuAnchor), findsWidgets);
+      expect(find.byType(DropdownMenu<String>), findsOneWidget);
+      expect(find.byType(PopupMenuButton<String>), findsOneWidget);
+    });
+
+    testWidgets('displays badge and tooltip widgets', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(theme: ThemeData.light(), home: const MaterialTab()),
+      );
+
+      expect(find.byType(Badge), findsNWidgets(2));
+      expect(find.byType(Tooltip), findsWidgets);
+    });
+
+    testWidgets('shows an alert dialog when requested', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(theme: ThemeData.light(), home: const MaterialTab()),
+      );
+
+      await tester.ensureVisible(find.text('Show Alert Dialog'));
+      await tester.tap(find.text('Show Alert Dialog'), warnIfMissed: false);
+      // pumpAndSettle cannot be used here: the tab shows indeterminate
+      // progress indicators, which never stop animating.
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
+
+      expect(find.byType(AlertDialog), findsOneWidget);
+      expect(find.text('Alert Dialog'), findsOneWidget);
     });
 
     testWidgets('displays button widgets', (tester) async {

@@ -18,7 +18,7 @@ class ColorSchemeTab extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     final List<ColorSection> colorSections = [
-      if (additionalColors != null) ...additionalColors!,
+      ...?additionalColors,
       ColorSection(
         title: 'Primary',
         colors: [
@@ -200,11 +200,10 @@ class ColorCard extends StatelessWidget {
                       size: 16,
                       color: _getContrastColor(colorInfo.color),
                     ),
-                    onPressed:
-                        () => ClipboardService.copyToClipboard(
-                          context,
-                          '${colorInfo.name}: $hexColor',
-                        ),
+                    onPressed: () => ClipboardService.copyToClipboard(
+                      context,
+                      '${colorInfo.name}: $hexColor',
+                    ),
                   ),
                 ],
               ),

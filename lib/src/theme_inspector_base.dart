@@ -63,18 +63,17 @@ class ThemeInspector {
   }) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder:
-            (context) => InspectorPage(
-              additionalColors: additionalColors,
-              additionalTextStyles: additionalTextStyles,
-              additionalMaterialWidgets: additionalMaterialWidgets,
-              additionalCupertinoWidgets: additionalCupertinoWidgets,
-              customTabs: customTabs,
-              materialEnabled: materialEnabled,
-              cupertinoEnabled: cupertinoEnabled,
-              colorSchemeEnabled: colorSchemeEnabled,
-              textThemeEnabled: textThemeEnabled,
-            ),
+        builder: (context) => InspectorPage(
+          additionalColors: additionalColors,
+          additionalTextStyles: additionalTextStyles,
+          additionalMaterialWidgets: additionalMaterialWidgets,
+          additionalCupertinoWidgets: additionalCupertinoWidgets,
+          customTabs: customTabs,
+          materialEnabled: materialEnabled,
+          cupertinoEnabled: cupertinoEnabled,
+          colorSchemeEnabled: colorSchemeEnabled,
+          textThemeEnabled: textThemeEnabled,
+        ),
       ),
     );
   }
