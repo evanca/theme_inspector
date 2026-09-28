@@ -1,15 +1,10 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:theme_inspector/theme_inspector.dart';
 
+import 'inspector_layouts.dart';
 import 'shared/missing_theme_banner.dart';
 
-/// Minimum width a tab needs before its label is shown alongside the icon.
-///
-/// Below `_kMinTabWidth * tabCount` the inspector switches to the compact tab
-/// bar: a scrollable row of icons showing only the selected tab's label.
-const double _kMinTabWidth = 150.0;
-
-/// This widget displays a tabbed interface showing different aspects of the current theme,
+/// This widget displays a navigable interface showing different aspects of the current theme,
 /// including Material widgets, Cupertino widgets, color schemes, and text styles.
 /// It can be customized with additional widgets, colors, and styles, and can display
 /// completely custom tabs.
@@ -111,8 +106,8 @@ class _InspectorPageState extends State<InspectorPage>
     _tabController.addListener(_onTabChanged);
   }
 
-  /// Triggers a rebuild when the selected tab index settles so the label of
-  /// the newly-selected tab becomes visible on small screens.
+  /// Rebuilds when the selected tab settles, so the navigation and the shown
+  /// tab follow selections made by swiping as well as by tapping.
   void _onTabChanged() {
     if (!_tabController.indexIsChanging) {
       setState(() {});
@@ -126,6 +121,12 @@ class _InspectorPageState extends State<InspectorPage>
     super.dispose();
   }
 
+  /// Selects a tab from the rail or bottom bar. A zero duration settles the
+  /// index at once, so the listener rebuilds without waiting for an animation
+  /// that only [CompactTabLayout]'s TabBarView would show.
+  void _onSelected(int index) =>
+      _tabController.animateTo(index, duration: Duration.zero);
+
   @override
   Widget build(BuildContext context) {
     // Bail out before building any widget that needs this library's
@@ -136,64 +137,20 @@ class _InspectorPageState extends State<InspectorPage>
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        // The compact layout has to account for how many tabs there are, not
-        // just how wide the screen is: customTabs makes the count variable, and
-        // a non-scrollable TabBar clips labels rather than ellipsising them.
-        // 150dp per tab keeps the 600dp threshold for the four built-in tabs.
-        final bool isSmallScreen =
-            constraints.maxWidth < _kMinTabWidth * _tabs.length;
-        return Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            leading: BackButton(),
-            title: TabBar(
-              controller: _tabController,
-              isScrollable: isSmallScreen,
-              tabs: List.generate(_tabs.length, (index) {
-                final bool isSelected = index == _tabController.index;
-
-                if (isSmallScreen) {
-                  return Tab(
-                    height: kMinInteractiveDimension,
-                    child: Semantics(
-                      // The label of an unselected tab is faded out, and
-                      // RenderOpacity drops its subtree from the semantics tree
-                      // at zero opacity. Without this, screen readers announce
-                      // every unselected tab as unlabelled.
-                      label: _tabs[index].title,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(_tabs[index].icon),
-                          Opacity(
-                            key: ValueKey('tab_label_opacity_$index'),
-                            opacity: isSelected ? 1.0 : 0.0,
-                            child: ExcludeSemantics(
-                              child: Text(_tabs[index].title),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                }
-
-                return Tab(
-                  text: _tabs[index].title,
-                  icon: Icon(_tabs[index].icon),
-                );
-              }),
-            ),
-          ),
-          body: TabBarView(
-            controller: _tabController,
-            children: List.generate(
-              _tabs.length,
-              (index) => _tabs[index].child,
-            ),
-          ),
-        );
+        final int index = _tabController.index;
+        // Both navigation widgets need at least two destinations.
+        if (_tabs.length < 2) return SingleTabLayout(tabs: _tabs);
+        if (constraints.maxWidth >= kRailBreakpoint) {
+          return RailLayout(tabs: _tabs, index: index, onSelected: _onSelected);
+        }
+        if (_tabs.length <= kMaxBottomBarDestinations) {
+          return BottomBarLayout(
+            tabs: _tabs,
+            index: index,
+            onSelected: _onSelected,
+          );
+        }
+        return CompactTabLayout(tabs: _tabs, controller: _tabController);
       },
     );
   }

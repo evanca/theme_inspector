@@ -67,6 +67,7 @@ class MyHomePage extends StatelessWidget {
                         name: 'Custom Color 1',
                         color: Color(0xFF0057B7),
                         textColor: Colors.white,
+                        textColorName: 'white',
                       ),
                       ColorInfo(
                         name: 'Custom Color 2',
@@ -109,6 +110,7 @@ class MyHomePage extends StatelessWidget {
                 customTabs: [
                   InspectorTab(
                     title: 'My Custom Tab',
+                    shortTitle: 'Custom',
                     icon: Icons.catching_pokemon,
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),

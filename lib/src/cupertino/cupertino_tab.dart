@@ -1,7 +1,7 @@
 import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:theme_inspector/src/color_scheme/color_info.dart';
-import 'package:theme_inspector/src/color_scheme/color_scheme_tab.dart';
+import 'package:theme_inspector/src/color_scheme/color_tile.dart';
 import 'package:theme_inspector/src/shared/section_wrapper.dart';
 
 /// A tab that displays various Cupertino widgets for inspection
@@ -429,45 +429,53 @@ class _CupertinoColorsShowcase extends _ShowcaseBase {
 
   @override
   Widget build(BuildContext context) {
+    ColorInfo color(String name, Color color, String onName, Color onColor) =>
+        ColorInfo(
+          name: name,
+          color: color,
+          textColor: onColor,
+          textColorName: onName,
+        );
+    final Color label = CupertinoColors.label.resolveFrom(context);
+
     return Column(
       children: [
-        ColorCard(
-          colorInfo: ColorInfo(
-            name: 'systemBackground',
-            color: CupertinoColors.systemBackground.resolveFrom(context),
-            textColor: CupertinoColors.label.resolveFrom(context),
+        for (final ColorInfo info in [
+          color(
+            'systemBackground',
+            CupertinoColors.systemBackground.resolveFrom(context),
+            'label',
+            label,
           ),
-        ),
-        ColorCard(
-          colorInfo: ColorInfo(
-            name: 'secondarySystemBackground',
-            color: CupertinoColors.secondarySystemBackground.resolveFrom(
-              context,
-            ),
-            textColor: CupertinoColors.label.resolveFrom(context),
+          color(
+            'secondarySystemBackground',
+            CupertinoColors.secondarySystemBackground.resolveFrom(context),
+            'label',
+            label,
           ),
-        ),
-        ColorCard(
-          colorInfo: ColorInfo(
-            name: 'inactiveGray',
-            color: CupertinoColors.inactiveGray.resolveFrom(context),
-            textColor: CupertinoColors.white,
+          color(
+            'inactiveGray',
+            CupertinoColors.inactiveGray.resolveFrom(context),
+            'white',
+            CupertinoColors.white,
           ),
-        ),
-        ColorCard(
-          colorInfo: ColorInfo(
-            name: 'activeBlue',
-            color: CupertinoColors.activeBlue.resolveFrom(context),
-            textColor: CupertinoColors.white,
+          color(
+            'activeBlue',
+            CupertinoColors.activeBlue.resolveFrom(context),
+            'white',
+            CupertinoColors.white,
           ),
-        ),
-        ColorCard(
-          colorInfo: ColorInfo(
-            name: 'destructiveRed',
-            color: CupertinoColors.destructiveRed.resolveFrom(context),
-            textColor: CupertinoColors.white,
+          color(
+            'destructiveRed',
+            CupertinoColors.destructiveRed.resolveFrom(context),
+            'white',
+            CupertinoColors.white,
           ),
-        ),
+        ])
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: ColorTile(info: info, selected: false),
+          ),
       ],
     );
   }

@@ -160,10 +160,10 @@ ThemeInspector.open(
 ### API Reference
 
 - `ColorSection({required String title, required List<ColorInfo> colors})` — a group of related colors.
-- `ColorInfo({required String name, required Color color, Color? textColor})` — information about a single color.
+- `ColorInfo({required String name, required Color color, Color? textColor, String? textColorName})` — information about a single color; `textColorName` labels the text color on its tile.
 - `TextStyleInfo(String name, TextStyle? style)` — information about a text style.
 - `SectionWrapper({required String title, required Widget child})` — a wrapper widget for consistent section formatting.
-- `InspectorTab({required String title, required IconData icon, required Widget child})` — a custom tab in the inspector.
+- `InspectorTab({required String title, required IconData icon, required Widget child, String? shortTitle})` — a custom tab in the inspector; `shortTitle` is the label in the navigation rail and phone bottom bar (about 78 dp wide).
 
 ## Best Practices
 

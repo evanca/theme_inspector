@@ -12,14 +12,22 @@ void main() {
     );
 
     testWidgets(
-      'all small-screen tabs have height set to kMinInteractiveDimension',
+      'all compact tabs have height set to kMinInteractiveDimension',
       (tester) async {
         tester.view.physicalSize = const Size(390, 844);
         tester.view.devicePixelRatio = 1.0;
         addTearDown(tester.view.resetPhysicalSize);
         addTearDown(tester.view.resetDevicePixelRatio);
 
-        await tester.pumpWidget(const MaterialApp(home: InspectorPage()));
+        // Six tabs: more than a bottom navigation bar holds, so a phone
+        // falls back to the compact tab bar.
+        await tester.pumpWidget(
+          MaterialApp(
+            home: InspectorPage(
+              customTabs: [minimalCustomTab, minimalCustomTab],
+            ),
+          ),
+        );
 
         final tabs = tester.widgetList<Tab>(find.byType(Tab)).toList();
         expect(tabs, isNotEmpty);
@@ -53,8 +61,8 @@ void main() {
         icon: Icons.favorite,
         child: const SizedBox.shrink(),
       );
-      // Four tabs, so 390dp is below the 150dp-per-tab threshold and the
-      // compact tab bar is used. With only two tabs there is room for labels.
+      // Six tabs are more than a bottom navigation bar holds, so a phone
+      // uses the compact tab bar.
       final tabC = InspectorTab(
         title: 'C',
         icon: Icons.circle,
@@ -66,6 +74,17 @@ void main() {
         child: const SizedBox.shrink(),
       );
 
+      final tabE = InspectorTab(
+        title: 'E',
+        icon: Icons.circle_outlined,
+        child: const SizedBox.shrink(),
+      );
+      final tabF = InspectorTab(
+        title: 'F',
+        icon: Icons.square_outlined,
+        child: const SizedBox.shrink(),
+      );
+
       await tester.pumpWidget(
         MaterialApp(
           home: InspectorPage(
@@ -73,7 +92,7 @@ void main() {
             materialEnabled: false,
             cupertinoEnabled: false,
             textThemeEnabled: false,
-            customTabs: [tabA, tabB, tabC, tabD],
+            customTabs: [tabA, tabB, tabC, tabD, tabE, tabF],
           ),
         ),
       );
@@ -91,22 +110,6 @@ void main() {
       expect(labelOpacity(0), 0.0);
       expect(labelOpacity(1), 1.0);
     });
-
-    testWidgets(
-      'icon+text tabs on large screens use default height (height is null)',
-      (tester) async {
-        tester.view.physicalSize = const Size(1024, 768);
-        tester.view.devicePixelRatio = 1.0;
-        addTearDown(tester.view.resetPhysicalSize);
-        addTearDown(tester.view.resetDevicePixelRatio);
-
-        await tester.pumpWidget(const MaterialApp(home: InspectorPage()));
-
-        for (final tab in tester.widgetList<Tab>(find.byType(Tab))) {
-          expect(tab.height, isNull);
-        }
-      },
-    );
 
     testWidgets(
       'top bar meets android tap target guidelines on small screens',
@@ -178,11 +181,11 @@ void main() {
         ),
       );
 
-      // Verify all default tabs are present
-      expect(find.text('Color Scheme'), findsOneWidget);
+      // The rail uses the short labels of the built-in tabs.
+      expect(find.text('Colors'), findsOneWidget);
       expect(find.text('Material'), findsOneWidget);
       expect(find.text('Cupertino'), findsOneWidget);
-      expect(find.text('Text Theme'), findsOneWidget);
+      expect(find.text('Text'), findsOneWidget);
     });
 
     testWidgets('hides tabs when corresponding flags are false', (
@@ -219,10 +222,10 @@ void main() {
       );
 
       // Verify only enabled tabs are present
-      expect(find.text('Color Scheme'), findsOneWidget);
+      expect(find.text('Colors'), findsOneWidget);
       expect(find.text('Material'), findsOneWidget);
       expect(find.text('Cupertino'), findsNothing);
-      expect(find.text('Text Theme'), findsNothing);
+      expect(find.text('Text'), findsNothing);
     });
 
     testWidgets('includes custom tabs regardless of default tab flags', (

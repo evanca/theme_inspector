@@ -1,6 +1,6 @@
 name: theme_inspector
 description: Interactive Flutter theme inspector for visualizing and debugging Material and Cupertino widgets, color schemes, and text styles.
-version: 2.0.0
+version: 2.1.0
 repository: https://github.com/evanca/theme_inspector
 issue_tracker: https://github.com/evanca/theme_inspector/issues
 
@@ -20,9 +20,9 @@ platforms:
   windows:
 
 screenshots:
-  - description: 'This screenshot shows the Color Scheme tab with Material color palette including primary, secondary, tertiary colors and their variants.'
+  - description: 'This screenshot shows the Color Scheme tab: each color role with its contrast grade, and a where-used panel listing the widgets that read it.'
     path: screenshots/web_01_color_scheme.png
-  - description: 'This screenshot shows the Text Theme tab displaying all Material text styles with customizable font properties.'
+  - description: 'This screenshot shows the Text Theme tab: every Material text style with its size and weight, and the widgets that use it.'
     path: screenshots/web_02_text_theme.png
   - description: 'This screenshot shows the Material Widgets tab showcasing common Material Design components and their styling.'
     path: screenshots/web_03_material_widgets.png

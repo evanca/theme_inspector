@@ -1,3 +1,24 @@
+## 2.1.0
+
+A redesigned inspector that shows not only what the theme holds but where it is used.
+
+- **Where used.** Selecting a colour or text style shows the built-in widgets that use it by
+  default, drawn live with your theme, followed by the widget properties that read it, e.g. `FilledButton` `backgroundColor: primary`. The mapping follows the
+  Material 3 defaults of `material_ui` 1.2.0. On wide screens it is a side panel; on phones
+  it opens as a bottom sheet.
+- **Responsive navigation.** A navigation rail from 600 dp, and a bottom navigation bar on
+  phones. Phones with more than five tabs keep the scrollable icon tab bar.
+- **Color Scheme tab.** Each role is one tile paired with its on-colour, showing both hex
+  values, their WCAG contrast ratio and grade (AAA, AA, AA large or Low), and how many
+  preview widgets read it. Tiles flow into a grid on wide screens. Added the tertiary and
+  container roles. Long colour names now wrap instead of truncating.
+- **Text Theme tab.** Styles are grouped by role (Display, Headline, Title, Body, Label),
+  with the app's own styles under Custom, and show their weight beside their size.
+- Added `InspectorTab.shortTitle`, the label shown in the rail and bottom bar; the built-in
+  tabs use "Colors" and "Text".
+- Added `ColorInfo.textColorName`, which labels the text colour on a colour's tile.
+- The Cupertino tab's colours use the new colour tile.
+
 ## 2.0.0
 
 Migrates to Flutter's decoupled design libraries. Material and Cupertino inside the

@@ -11,6 +11,14 @@ class ColorInfo {
   /// Contrast color to display the name of the color
   final Color? textColor;
 
+  /// Name of [textColor], e.g. `onPrimary`, shown on the colour's tile.
+  final String? textColorName;
+
   /// Creates information about a color
-  const ColorInfo({required this.name, required this.color, this.textColor});
+  const ColorInfo({
+    required this.name,
+    required this.color,
+    this.textColor,
+    this.textColorName,
+  });
 }

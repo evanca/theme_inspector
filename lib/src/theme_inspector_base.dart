@@ -90,17 +90,26 @@ class InspectorTab {
   /// Widget to display in the tab
   final Widget child;
 
+  /// Shorter title for the navigation rail and bottom navigation bar, where
+  /// a phone gives each destination about 78 dp. Defaults to [title].
+  final String? shortTitle;
+
+  /// The label shown in the navigation rail and bottom navigation bar.
+  String get navigationLabel => shortTitle ?? title;
+
   /// Creates a custom tab for the inspector
   const InspectorTab({
     required this.title,
     required this.icon,
     required this.child,
+    this.shortTitle,
   });
 
   /// Color scheme tab
   factory InspectorTab.colorScheme(List<ColorSection>? additionalColors) {
     return InspectorTab(
       title: 'Color Scheme',
+      shortTitle: 'Colors',
       icon: Icons.color_lens,
       child: ColorSchemeTab(additionalColors: additionalColors),
     );
@@ -134,6 +143,7 @@ class InspectorTab {
   factory InspectorTab.textTheme(List<TextStyleInfo>? additionalTextStyles) {
     return InspectorTab(
       title: 'Text Theme',
+      shortTitle: 'Text',
       icon: Icons.text_fields,
       child: TextThemeTab(additionalTextStyles: additionalTextStyles),
     );

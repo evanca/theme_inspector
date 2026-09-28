@@ -31,8 +31,10 @@ than another app's theme. Requires Flutter 3.44 / Dart 3.12 or newer.
 ## Features
 
 ✨ **Visual Theme Inspection** - View all Material and Cupertino widgets with your current theme applied  
-🎨 **Color Scheme Explorer** - Browse and copy color codes from your ColorScheme  
-📝 **Text Theme Preview** - See all text styles with size and weight information  
+🎨 **Color Scheme Explorer** - Each color role paired with its on-color, with its WCAG contrast ratio and grade  
+🔍 **Where Used** - Select a color or text style to see the built-in widgets that use it by default, next to a live preview of those widgets  
+📝 **Text Theme Preview** - See all text styles, grouped by role, with size and weight information  
+📱 **Responsive Layout** - A navigation rail on wide screens, a bottom navigation bar on phones  
 🔧 **Fully Customizable** - Add custom colors, text styles, widgets, and entire tabs  
 📋 **Copy to Clipboard** - Easily copy color codes and text style information  
 🎛️ **Toggle Tabs** - Enable or disable built-in tabs as needed
@@ -84,10 +86,15 @@ ElevatedButton(
 
 This will open a page with four default tabs:
 
-- **Color Scheme** - All ColorScheme colors with copy-to-clipboard functionality
+- **Color Scheme** - ColorScheme roles paired with their on-colors, with contrast ratios
+  and copy-to-clipboard
 - **Material** - Material widgets (buttons, text fields, cards, etc.)
 - **Cupertino** - iOS-style Cupertino widgets
-- **Text Theme** - All TextTheme styles with size information
+- **Text Theme** - All TextTheme styles with size and weight information
+
+Selecting a color or text style shows which built-in widgets use it by default, next to
+a live preview of those widgets. On wide screens this is a side panel; on phones
+it opens as a bottom sheet.
 
 ### Adding Custom Colors
 
@@ -108,6 +115,7 @@ ThemeInspector.open(
           name: 'Custom Color 1',
           color: const Color(0xFF0057B7),
           textColor: Colors.white,
+          textColorName: 'white', // Optional: labels the text color
         ),
         ColorInfo(
           name: 'Custom Color 2',
@@ -219,6 +227,7 @@ ThemeInspector.open(
   customTabs: [
     InspectorTab(
       title: 'My Custom Tab',
+      shortTitle: 'Custom', // Optional: fits a phone's bottom navigation bar
       icon: Icons.catching_pokemon,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -267,8 +276,13 @@ Represents information about a single color.
 ColorInfo({
   required String name,
   required Color color,
-  Color? textColor,  // Optional contrast color for text display
+  Color? textColor,        // Optional contrast color for text display
+  String? textColorName,   // Optional name for textColor, e.g. 'onBrand'
 })
+```
+
+The tile shows the contrast ratio between `color` and `textColor` (or black or white,
+whichever contrasts more, when `textColor` is omitted)
 ```
 
 ### TextStyleInfo
@@ -302,8 +316,13 @@ InspectorTab({
   required String title,
   required IconData icon,
   required Widget child,
+  String? shortTitle,  // Optional label for the navigation rail and bottom bar
 })
 ```
+
+A phone gives each bottom navigation destination about 78 dp, so a long `title` wraps
+there; `shortTitle` avoids that. With more than five tabs, phones fall back to a
+scrollable tab bar.
 
 ## Agent Skill
 
